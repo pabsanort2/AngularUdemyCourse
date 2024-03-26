@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -11,7 +12,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-crear-producto',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './crear-producto.component.html',
   styleUrl: './crear-producto.component.css',
 })
