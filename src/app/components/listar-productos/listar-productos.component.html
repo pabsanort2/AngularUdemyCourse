@@ -4,8 +4,9 @@
             <div class="card">
                 <div class="card-body text-center">
                     <span class="titulo">LISTADO DE PRODUCTOS</span>
-                    <button routerLink="/crear-producto" routerLinkActive='active' class="btn btn-success float-end">NUEVO</button>
-                    <table class="table table-striped mt-3">
+                    <button routerLink="/crear-producto" routerLinkActive='active'
+                        class="btn btn-success float-end">NUEVO</button>
+                    <table *ngIf="listProductos.length > 0" class="table table-striped mt-3">
                         <thead>
                             <tr>
                                 <th scope="col">Producto</th>
@@ -15,21 +16,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Coca-cola</td>
-                                <td>Bebida</td>
-                                <td>Niza</td>
-                                <td>2</td>
-                                <td>
-                                    <i class="fa-solid fa-pen-to-square text-primary"></i>
-                                    <i class="fa-solid fa-trash text-danger"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pantera rosa</td>
-                                <td>Dulce</td>
-                                <td>Sevilla</td>
-                                <td>3</td>
+                            <tr *ngFor="let producto of listProductos">
+                                <td>{{producto.nombre}}</td>
+                                <td>{{producto.categoria}}</td>
+                                <td>{{producto.ubicacion}}</td>
+                                <td>{{producto.precio | currency: 'EUR'}}</td>
                                 <td>
                                     <i class="fa-solid fa-pen-to-square text-primary"></i>
                                     <i class="fa-solid fa-trash text-danger"></i>
@@ -37,6 +28,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostrar</h5>
                 </div>
             </div>
         </div>
