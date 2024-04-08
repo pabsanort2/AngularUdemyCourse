@@ -19,7 +19,7 @@ import { ProductoService } from '../../services/producto.service';
   templateUrl: './crear-producto.component.html',
   styleUrl: './crear-producto.component.css',
 })
-export class CrearProductoComponent implements OnInit{
+export class CrearProductoComponent implements OnInit {
   productoForm = new FormGroup({
     producto: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
@@ -53,20 +53,40 @@ export class CrearProductoComponent implements OnInit{
       precio: +this.productoForm.get('precio')?.value!,
     };
 
-    console.log(PRODUCTO);
-    this._productoService.guardarProducto(PRODUCTO).subscribe(
-      (data) => {
-        this.toastr.success(
-          'El producto fue registrado con exito',
-          'Producto registrado'
-        );
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        console.log(error);
-        this.productoForm.reset();
-      }
-    );
+    if (this.id !== null) {
+      // We edit the product
+
+      this._productoService.editarProducto(this.id, PRODUCTO).subscribe(
+        (data) => {
+          this.toastr.info(
+            'El producto fue actualizado con exito',
+            'Producto actualizado'
+          );
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
+          this.productoForm.reset();
+        }
+      );
+    } else {
+      // We add the product
+
+      console.log(PRODUCTO);
+      this._productoService.guardarProducto(PRODUCTO).subscribe(
+        (data) => {
+          this.toastr.success(
+            'El producto fue registrado con exito',
+            'Producto registrado'
+          );
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
+          this.productoForm.reset();
+        }
+      );
+    }
   }
 
   esEditar() {
